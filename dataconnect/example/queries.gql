@@ -1,0 +1,45 @@
+mutation CreateNewPatient($firstName: String!, $lastName: String!, $contactNumber: String!, $dateOfBirth: Date!, $email: String) @auth(level: USER) {
+  patient_insert(data: {
+    firstName: $firstName,
+    lastName: $lastName,
+    contactNumber: $contactNumber,
+    dateOfBirth: $dateOfBirth,
+    email: $email
+  })
+}
+
+query GetDoctorById($id: UUID!) @auth(level: USER) {
+  doctor(id: $id) {
+    id
+    firstName
+    lastName
+    specialization
+    contactNumber
+    email
+    clinicAddress
+  }
+}
+
+mutation UpdateAppointmentStatus($id: UUID!, $status: String!) @auth(level: USER) {
+  appointment_update(
+    id: $id,
+    data: {
+      status: $status
+    }
+  )
+}
+
+query ListUpcomingAppointmentsForPatient($patientId: UUID!) @auth(level: USER) {
+  appointments(where: {patientId: {eq: $patientId}, appointmentDateTime: {gt_time: {now: true}}}) {
+    id
+    doctor {
+      firstName
+      lastName
+      specialization
+    }
+    appointmentDateTime
+    reason
+    status
+    notes
+  }
+}
