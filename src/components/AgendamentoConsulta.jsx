@@ -41,6 +41,7 @@ function AgendamentoConsulta() {
             setMedicos(medicosResponse.data);
             setLoading(false);
         } catch (err) {
+            console.error("Erro ao carregar listas de pacientes/médicos:", err);
             setErro("Erro ao carregar listas de pacientes/médicos. API indisponível?");
             setLoading(false);
         }
