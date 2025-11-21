@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://carehub-api.onrender.com/api/:path*"
+    },
+    {
+      "source": "/:path((?!static/|assets/|favicon.ico).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
