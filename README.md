@@ -1,51 +1,39 @@
 # 🖥️ CareHub Front-end (React)
 
-Interface de Usuário (SPA - Single Page Application) construída em **React.js** usando o **Vite** para consumir a CareHub API (Spring Boot).
+Interface de Usuário (SPA) construída em **React.js** usando o **Vite**.
 
 ## ⚙️ Tecnologias Principais
 
 | Componente | Tecnologia | Versão Principal |
 | :--- | :--- | :--- |
-| **Framework** | **React** | 18+ |
-| **Build Tool** | **Vite** | 5.x |
-| **Requisições HTTP**| **Axios** | 1.x |
-| **Linguagem** | **JavaScript/JSX** | ES6+ |
-| **Deploy** | **Vercel** | - |
+| **Framework** | **React** (Vite) | 18+ |
+| **Roteamento** | **React Router DOM** | 6.x |
+| **HTTP** | **Axios Interceptor** | 1.x |
+| **Autenticação** | **Firebase (Client SDK)** | 10.x |
+| **Pagamentos** | **@stripe/react-stripe-js** | 25.x |
+| **UX/UI** | Tema Dark Consistente | - |
 
-## 🚀 Como Rodar Localmente (Desenvolvimento)
+## 🚀 Como Rodar Localmente
 
-### 1. Instalação
+### 1. Instalação e Execução
 
-Na pasta raiz do projeto (`carehub-frontend/`):
+Instale as dependências: `npm install`
+Execute o Front-end: `npm run dev`
+Acesse em: `http://localhost:5173/`
 
-```bash
-npm install
-```
+### 2. Fluxo de Autenticação
 
-### 2. Configuração da API
-
-A URL base da API é configurada em ```src/api/api.js```.
-
-- Em Desenvolvimento Local: A API é acessada em ```http://localhost:8080/api```.
-
-### 3. Execução
-
-Inicie o servidor de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-O aplicativo estará disponível em ```http://localhost:5173/```.
+ 1.  **Redirecionamento:** O usuário é levado para a rota `/login` pelo `ProtectedRoute` se não houver token no `localStorage`.
+ 2.  **Login:** O `LoginPage.jsx` utiliza o Firebase Client SDK para autenticar o usuário.
+ 3.  **Token:** O token JWT retornado é salvo no `localStorage`.
+ 4.  **Axios Interceptor:** Um interceptor em `src/api/api.js` anexa automaticamente o token a **todas** as requisições enviadas ao Back-end.
+ 5.  **Logout e Inatividade:** O sistema implementa **Logout manual** e **Timeout de Inatividade** (10 minutos) no `MainLayout.jsx`, garantindo que o token seja limpo ao sair.
 
 ## ☁️ Deploy e Integração (Vercel)
 
-O Front-end é hospedado no Vercel.
+A comunicação com o Back-end (Render) é estabelecida via variáveis de ambiente. A aplicação exige a configuração das seguintes variáveis no painel da Vercel:
 
-**Variáveis de Ambiente (Vercel):**
-
-Para que o Front-end possa se comunicar com o Back-end hospedado no Render, defina a seguinte variável no Vercel (seção Environment):
-
-| Variável | Valor | Descrição |
-| :--- | :--- | :--- |
-| VITE_API_BASE_URL | URL pública do Back-end (Render) | Ex: ```https://carehub-api.onrender.com/api``` |
+| Variável | Descrição |
+| :--- | :--- |
+| **`VITE_API_BASE_URL`** | URL pública do Back-end no Render (Ex: `https://carehub-api.onrender.com/api`). |
+| **`VITE_STRIPE_PUBLIC_KEY`** | Chave publicável do Stripe para inicialização dos formulários. |
