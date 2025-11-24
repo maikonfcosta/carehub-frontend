@@ -37,3 +37,7 @@ A comunicação com o Back-end (Render) é estabelecida via variáveis de ambien
 | :--- | :--- |
 | **`VITE_API_BASE_URL`** | URL pública do Back-end no Render (Ex: `https://carehub-api.onrender.com/api`). |
 | **`VITE_STRIPE_PUBLIC_KEY`** | Chave publicável do Stripe para inicialização dos formulários. |
+
+## ⚖️ Licença
+
+Este projeto está licenciado sob os termos da **Licença MIT**. Para mais detalhes, consulte o arquivo [LICENSE.md] na raiz do repositório.
