@@ -5,13 +5,11 @@
       "destination": "https://carehub-api.onrender.com/api/:path*"
     },
     
-    // Regra principal de Fallback (captura a maioria dos caminhos sem barra no final)
     {
       "source": "/:path((?!static/|assets/|favicon.ico).*)",
       "destination": "/index.html"
     },
     
-    // 🚨 REGRA EXTRA PARA GARANTIR CAMINHOS COM BARRA FINAL 🚨
     {
       "source": "/:path*/",
       "destination": "/index.html"
